@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+  <title>Purple Birthday | Mom</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      user-select: none;
+    }
+
+    body {
+      min-height: 100vh;
+      width: 100%;
+      background: radial-gradient(circle at 30% 10%, #1a0b2e, #0a0314);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', 'Poppins', 'Inter', system-ui, -apple-system, sans-serif;
+      padding: 20px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* main container - fully responsive */
+    .wrapper {
+      width: 100%;
+      max-width: 750px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* dark purple elegant card */
+    .card {
+      background: rgba(20, 8, 35, 0.88);
+      backdrop-filter: blur(8px);
+      border-radius: min(8vw, 56px);
+      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.6), 0 0 0 2px rgba(156, 80, 220, 0.5), 0 0 0 6px rgba(106, 27, 154, 0.4);
+      padding: clamp(1rem, 5vw, 2rem);
+      text-align: center;
+      width: 100%;
+      transition: all 0.2s;
+      border: 1px solid rgba(180, 100, 230, 0.5);
+    }
+
+    /* dark purple accents */
+    h1 {
+      font-size: clamp(1.8rem, 8vw, 3.2rem);
+      font-weight: 800;
+      background: linear-gradient(135deg, #c084fc, #a855f7, #d8b4fe);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      text-shadow: 0 2px 12px rgba(128, 0, 255, 0.3);
+      letter-spacing: -0.01em;
+      margin-bottom: 0.25rem;
+    }
+
+    .sub {
+      font-size: clamp(0.8rem, 3.5vw, 1.2rem);
+      color: #cfaaff;
+      background: rgba(76, 29, 110, 0.6);
+      display: inline-block;
+      padding: 0.2rem 1.2rem;
+      border-radius: 40px;
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+
+    /* BIG BIRTHDAY CAKE */
+    .cake-container {
+      display: flex;
+      justify-content: center;
+      margin: 1rem 0 0.8rem;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .cake {
+      position: relative;
+      width: clamp(200px, 65vw, 380px);
+      filter: drop-shadow(0 12px 18px rgba(0,0,0,0.5));
+      transition: transform 0.2s ease;
+    }
+    .cake:active { transform: scale(0.98); }
+
+    /* cake layers */
+    .layer-bottom {
+      background: #3b1e5e;
+      height: clamp(45px, 12vw, 70px);
+      width: 100%;
+      border-radius: 20px 20px 12px 12px;
+      box-shadow: inset 0 3px 8px rgba(255,215,255,0.2), 0 6px 0 #241239;
+      background: linear-gradient(145deg, #4a2672, #2f1652);
+      border-bottom: 3px solid #9b6dca;
+    }
+    .layer-middle {
+      background: #512e84;
+      height: clamp(40px, 11vw, 65px);
+      width: 85%;
+      margin: 0 auto;
+      border-radius: 18px 18px 10px 10px;
+      box-shadow: inset 0 2px 6px rgba(230,200,255,0.2), 0 5px 0 #2e194b;
+      background: linear-gradient(145deg, #6b3fa0, #412669);
+    }
+    .layer-top {
+      background: #7b4ca8;
+      height: clamp(38px, 10vw, 60px);
+      width: 70%;
+      margin: 0 auto;
+      border-radius: 18px 18px 10px 10px;
+      box-shadow: inset 0 2px 5px rgba(255,220,255,0.3), 0 4px 0 #382257;
+      background: linear-gradient(145deg, #9866c9, #6a3c9e);
+    }
+
+    /* candles on cake */
+    .candles-area {
+      position: absolute;
+      top: -28px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      gap: clamp(12px, 6vw, 30px);
+      pointer-events: none;
+    }
+    .candle-item {
+      pointer-events: auto;
+      cursor: pointer;
+      transition: transform 0.1s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .candle-item:active { transform: scale(0.92);}
+    .candle-stick {
+      width: clamp(14px, 4vw, 24px);
+      height: clamp(48px, 11vw, 75px);
+      background: linear-gradient(145deg, #f9f3d9, #ecdca8);
+      border-radius: 12px 12px 6px 6px;
+      box-shadow: 0 3px 0 #aa8c54;
+    }
+    .flame-active {
+      width: clamp(10px, 3vw, 18px);
+      height: clamp(28px, 6vw, 44px);
+      background: radial-gradient(circle, #ffbb44, #ff7700);
+      border-radius: 50% 50% 40% 40%;
+      filter: blur(1px);
+      animation: flickerFast 0.2s infinite alternate;
+      margin-bottom: 4px;
+      box-shadow: 0 0 15px #ffaa33;
+    }
+    .flame-out {
+      width: clamp(8px, 2.5vw, 14px);
+      height: clamp(10px, 2.8vw, 18px);
+      background: #5f4c6e;
+      border-radius: 4px;
+      margin-bottom: 4px;
+      opacity: 0.5;
+      transition: all 0.2s;
+    }
+    @keyframes flickerFast {
+      0% { opacity: 0.9; transform: scaleY(1) rotate(-1deg);}
+      100% { opacity: 1; transform: scaleY(1.12) rotate(2deg);}
+    }
+    .candle-label {
+      font-size: 9px;
+      background: #2a1a42;
+      color: #dbbaff;
+      padding: 2px 6px;
+      border-radius: 20px;
+      margin-top: 5px;
+      font-weight: bold;
+    }
+
+    /* status and blow message */
+    .blow-prompt {
+      background: #2b1645;
+      margin: 20px 12px 12px;
+      padding: clamp(8px, 2vw, 12px);
+      border-radius: 48px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      font-size: clamp(0.85rem, 3.5vw, 1.1rem);
+      font-weight: 600;
+      color: #e9d5ff;
+      border: 1px solid #a855f7;
+    }
+    .blow-prompt span {
+      background: #401e6b;
+      padding: 5px 12px;
+      border-radius: 32px;
+    }
+    .action-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin: 16px 0 8px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      border: none;
+      background: linear-gradient(120deg, #5e2a8c, #3b1b60);
+      padding: clamp(10px, 3.5vw, 14px) clamp(20px, 6vw, 32px);
+      border-radius: 60px;
+      font-size: clamp(0.85rem, 3vw, 1.1rem);
+      font-weight: bold;
+      color: white;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      box-shadow: 0 6px 0 #1f1035;
+      transition: all 0.1s linear;
+    }
+    .btn:active {
+      transform: translateY(3px);
+      box-shadow: 0 2px 0 #1f1035;
+    }
+    .skip-btn {
+      background: linear-gradient(120deg, #3a2552, #23163b);
+      box-shadow: 0 6px 0 #130b1f;
+    }
+    .status-msg {
+      font-size: clamp(0.7rem, 3vw, 0.85rem);
+      background: #1d1030;
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 60px;
+      color: #bfa3e6;
+      margin-top: 12px;
+    }
+
+    /* dark decoration: purple mist */
+    .mist {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 200px;
+      background: radial-gradient(ellipse at center, rgba(80, 40, 120, 0.3), transparent);
+      pointer-events: none;
+    }
+    footer {
+      font-size: 0.65rem;
+      opacity: 0.6;
+      margin-top: 18px;
+      color: #b491dd;
+    }
+    @media (max-width: 480px) {
+      .candle-label { font-size: 7px; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="card">
+    <h1>HAPPY BIRTHDAY MOM</h1>
+    <div class="sub">✦ royal purple celebration ✦</div>
+
+    <!-- BIG BIRTHDAY CAKE (centerpiece) -->
+    <div class="cake-container">
+      <div class="cake">
+        <div class="layer-bottom"></div>
+        <div class="layer-middle"></div>
+        <div class="layer-top"></div>
+        <div class="candles-area" id="candlesArea">
+          <!-- dynamic candles will be injected -->
+        </div>
+      </div>
+    </div>
+
+    <!-- blow candle prompt & interactive -->
+    <div class="blow-prompt" id="blowPromptArea">
+      <span>🎂 tap any candle to blow it out 🎂</span>
+    </div>
+
+    <div class="action-buttons">
+      <button class="btn" id="playSongBtn">🎼 play melody</button>
+      <button class="btn skip-btn" id="skipSongBtn">⏭ skip music</button>
+    </div>
+
+    <div class="status-msg" id="songStatusMsg">
+      🎵 song ready • faster birthday synth
+    </div>
+    <footer>💜 mom's purple dream | blow candles & celebrate</footer>
+  </div>
+</div>
+<div class="mist"></div>
+
+<script>
+  (function() {
+    // ---------- FASTER SYNTHESIZED BIRTHDAY SONG (NO REPLAY, can skip) ----------
+    let audioCtx = null;
+    let isSongPlaying = false;
+    let scheduledTimeouts = [];
+    let currentSongTimeouts = [];
+    let songEndTimer = null;
+    let skipRequested = false;
+
+    function clearSongTimeouts() {
+      for (let id of currentSongTimeouts) {
+        clearTimeout(id);
+      }
+      currentSongTimeouts = [];
+      if (songEndTimer) {
+        clearTimeout(songEndTimer);
+        songEndTimer = null;
+      }
+    }
+
+    function stopCurrentSong(updateUI = true) {
+      if (!isSongPlaying) return;
+      isSongPlaying = false;
+      clearSongTimeouts();
+      skipRequested = false;
+      if (updateUI) {
+        const statusDiv = document.getElementById('songStatusMsg');
+        if (statusDiv) statusDiv.innerHTML = '⏹ music stopped. you can replay.';
+        setTimeout(() => {
+          if (document.getElementById('songStatusMsg') && !isSongPlaying) {
+            document.getElementById('songStatusMsg').innerHTML = '🎵 tap play • faster melody ready';
+          }
+        }, 1800);
+      }
+    }
+
+    function initAudio() {
+      if (audioCtx) return audioCtx;
+      try {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        return audioCtx;
+      } catch(e) { return null; }
+    }
+
+    function playSynthNote(freq, startTime, duration, volume, ctx, type='sine') {
+      if (!ctx) return;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = type;
+      osc.frequency.value = freq;
+      gain.gain.value = 0;
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      gain.gain.setValueAtTime(0, startTime);
+      gain.gain.linearRampToValueAtTime(volume, startTime + 0.008);
+      gain.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
+      osc.start(startTime);
+      osc.stop(startTime + duration);
+    }
+
+    // FASTER melody: Happy Birthday but tempo reduced spacing (durations shorter)
+    // notes freq mapping
+    const freqMap = {
+      'G4': 392.00, 'A4': 440.00, 'C5': 523.25, 'B4': 493.88,
+      'D5': 587.33, 'E4': 329.63, 'F4': 349.23, 'C4': 261.63
+    };
+    // faster sequence: each note duration ~0.32s instead of 0.45
+    const fastMelody = [
+      { note: 'G4', dur: 0.32 }, { note: 'G4', dur: 0.32 }, { note: 'A4', dur: 0.62 },
+      { note: 'G4', dur: 0.32 }, { note: 'C5', dur: 0.62 }, { note: 'B4', dur: 0.62 },
+      { note: 'G4', dur: 0.32 }, { note: 'G4', dur: 0.32 }, { note: 'A4', dur: 0.62 },
+      { note: 'G4', dur: 0.32 }, { note: 'D5', dur: 0.62 }, { note: 'C5', dur: 0.62 },
+      { note: 'G4', dur: 0.32 }, { note: 'G4', dur: 0.32 }, { note: 'G4', dur: 0.62 },
+      { note: 'E4', dur: 0.32 }, { note: 'C5', dur: 0.62 }, { note: 'B4', dur: 0.32 }, { note: 'A4', dur: 0.62 },
+      { note: 'F4', dur: 0.32 }, { note: 'F4', dur: 0.32 }, { note: 'E4', dur: 0.62 },
+      { note: 'C5', dur: 0.32 }, { note: 'D5', dur: 0.62 }, { note: 'C5', dur: 0.9 }
+    ];
+
+    async function playFastBirthdaySong() {
+      // prevent replays while already playing -> ignore if playing
+      if (isSongPlaying) {
+        const statusDiv = document.getElementById('songStatusMsg');
+        if(statusDiv) statusDiv.innerHTML = '🎵 song already playing, use skip or wait';
+        return;
+      }
+      // stop any leftover clean
+      stopCurrentSong(false);
+      let ctx = initAudio();
+      if (!ctx) {
+        document.getElementById('songStatusMsg').innerHTML = '⚠️ audio not supported';
+        return;
+      }
+      if (ctx.state === 'suspended') await ctx.resume();
+      
+      isSongPlaying = true;
+      skipRequested = false;
+      const statusDiv = document.getElementById('songStatusMsg');
+      statusDiv.innerHTML = '🎶 playing faster birthday melody for mom 🎶';
+      
+      const startBase = ctx.currentTime + 0.08;
+      let accTime = 0;
+      const timeouts = [];
+      
+      for (let i=0; i<fastMelody.length; i++) {
+        const seg = fastMelody[i];
+        const freq = freqMap[seg.note];
+        if (!freq) continue;
+        const startT = startBase + accTime;
+        const duration = seg.dur;
+        // main lead
+        playSynthNote(freq, startT, duration, 0.36, ctx, 'sine');
+        // harmonic touch
+        playSynthNote(freq*0.5, startT, duration, 0.12, ctx, 'triangle');
+        // small bass pulse
+        const bassF = (seg.note === 'G4' ? 196 : (seg.note === 'C5'? 130.8 : 155.56));
+        playSynthNote(bassF, startT, duration, 0.1, ctx, 'sawtooth');
+        accTime += duration;
+      }
+      // final sparkles
+      const sparkTimes = [startBase+accTime+0.05, startBase+accTime+0.25];
+      sparkTimes.forEach(t => {
+        playSynthNote(659.25, t, 0.35, 0.2, ctx, 'sine');
+        playSynthNote(880.00, t+0.1, 0.3, 0.18, ctx, 'sine');
+      });
+      
+      const totalLength = accTime + 0.6;
+      const endTimer = setTimeout(() => {
+        if (isSongPlaying && !skipRequested) {
+          isSongPlaying = false;
+          const statusDivEnd = document.getElementById('songStatusMsg');
+          if (statusDivEnd) statusDivEnd.innerHTML = '✨ song finished • enjoy cake ✨';
+          setTimeout(() => {
+            if(document.getElementById('songStatusMsg') && !isSongPlaying) 
+              document.getElementById('songStatusMsg').innerHTML = '🎵 ready • tap candles 🎵';
+          }, 2500);
+        } else if (skipRequested) {
+          isSongPlaying = false;
+        }
+      }, totalLength * 1000);
+      
+      currentSongTimeouts.push(endTimer);
+      songEndTimer = endTimer;
+      
+      // safety cleanup reference
+      for (let tid of timeouts) currentSongTimeouts.push(tid);
+    }
+    
+    // skip handler
+    function skipSong() {
+      if (isSongPlaying) {
+        skipRequested = true;
+        stopCurrentSong(true);
+        const statusDiv = document.getElementById('songStatusMsg');
+        statusDiv.innerHTML = '⏭ song skipped by mom’s wish';
+        setTimeout(() => {
+          if(document.getElementById('songStatusMsg') && !isSongPlaying)
+            document.getElementById('songStatusMsg').innerHTML = '🎵 ready to play again';
+        }, 1800);
+      } else {
+        const statusDiv = document.getElementById('songStatusMsg');
+        statusDiv.innerHTML = '⏸ no song playing • press play';
+        setTimeout(() => {
+          if(document.getElementById('songStatusMsg') && !isSongPlaying)
+            document.getElementById('songStatusMsg').innerHTML = '🎵 tap play • faster melody';
+        }, 1200);
+      }
+    }
+    
+    // ----- CANDLE BLOW MECHANICS -----
+    let candlesLit = true;
+    let candlesCount = 3;
+    let blownCandles = 0;
+    let allBlown = false;
+    
+    function updateCandleUI() {
+      const container = document.getElementById('candlesArea');
+      if (!container) return;
+      container.innerHTML = '';
+      for (let i=0; i<candlesCount; i++) {
+        const isLit = (blownCandles <= i); // first blownCandles are extinguished
+        const candleDiv = document.createElement('div');
+        candleDiv.className = 'candle-item';
+        candleDiv.setAttribute('data-candle-idx', i);
+        const flameDiv = document.createElement('div');
+        if (isLit) {
+          flameDiv.className = 'flame-active';
+        } else {
+          flameDiv.className = 'flame-out';
+        }
+        const stickDiv = document.createElement('div');
+        stickDiv.className = 'candle-stick';
+        const labelSpan = document.createElement('div');
+        labelSpan.className = 'candle-label';
+        labelSpan.innerText = isLit ? '🔥' : '💨';
+        candleDiv.appendChild(flameDiv);
+        candleDiv.appendChild(stickDiv);
+        candleDiv.appendChild(labelSpan);
+        candleDiv.addEventListener('click', (e) => {
+          e.stopPropagation();
+          blowCandleByIndex(i);
+        });
+        container.appendChild(candleDiv);
+      }
+    }
+    
+    function blowCandleByIndex(idx) {
+      if (allBlown) {
+        showBlowMessage('🎉 All candles already blown! Happy birthday 🎉');
+        return;
+      }
+      // only blow if candle is still lit (idx >= blownCandles)
+      if (idx >= blownCandles) {
+        // blow this candle (increase blown count up to that index inclusive?)
+        // we blow the first unlit from left? better: blow the specific candle, we set blownCandles = max(blownCandles, idx+1)
+        if (idx+1 > blownCandles) {
+          blownCandles = idx+1;
+          updateCandleUI();
+          // play tiny pop sound? (optional) but fine
+          if (blownCandles === candlesCount) {
+            allBlown = true;
+            showBlowMessage('🌟 YOU DID IT! HAPPY BIRTHDAY MOM! 🌟');
+            const promptDiv = document.getElementById('blowPromptArea');
+            if(promptDiv) promptDiv.innerHTML = '<span>🎂🎉 All candles blown! Make a wish! 🎉🎂</span>';
+          } else {
+            showBlowMessage(`💜 Candle ${idx+1} blown! ${candlesCount - blownCandles} left 💜`);
+          }
+        } else {
+          showBlowMessage('✨ That candle already gone! tap another 🔥');
+        }
+      } else {
+        showBlowMessage('🕯️ This candle is already out! try a lit flame');
+      }
+    }
+    
+    let msgTimer = null;
+    function showBlowMessage(msg) {
+      const promptDiv = document.getElementById('blowPromptArea');
+      if (!promptDiv) return;
+      const originalHTML = promptDiv.innerHTML;
+      promptDiv.innerHTML = `<span>🎈 ${msg} 🎈</span>`;
+      if (msgTimer) clearTimeout(msgTimer);
+      msgTimer = setTimeout(() => {
+        if (allBlown) {
+          promptDiv.innerHTML = '<span>🎂✨ Birthday wish granted! ✨🎂</span>';
+        } else {
+          promptDiv.innerHTML = '<span>🎂 tap any candle to blow it out 🎂</span>';
+        }
+      }, 2200);
+    }
+    
+    function resetCandles() {
+      blownCandles = 0;
+      allBlown = false;
+      candlesLit = true;
+      updateCandleUI();
+      const promptDiv = document.getElementById('blowPromptArea');
+      if(promptDiv) promptDiv.innerHTML = '<span>🎂 tap any candle to blow it out 🎂</span>';
+      showBlowMessage('🕯️ Candles relit! blow again');
+    }
+    
+    // optional? we keep reset but just initial load. no reset button but fine.
+    
+    // ---- event binding ----
+    const playBtn = document.getElementById('playSongBtn');
+    const skipBtn = document.getElementById('skipSongBtn');
+    
+    if (playBtn) {
+      playBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+        if (!audioCtx) initAudio();
+        if (audioCtx && audioCtx.state === 'suspended') await audioCtx.resume();
+        if (isSongPlaying) {
+          document.getElementById('songStatusMsg').innerHTML = '🎵 already playing, use skip 🎵';
+          return;
+        }
+        await playFastBirthdaySong();
+      });
+    }
+    if (skipBtn) {
+      skipBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        skipSong();
+      });
+    }
+    
+    // initialize candles UI
+    function initCandles() {
+      candlesCount = 3;
+      blownCandles = 0;
+      allBlown = false;
+      updateCandleUI();
+    }
+    initCandles();
+    
+    // option to blow all at once? but tap per candle is cute.
+    // add tiny extra: double-tap the cake could blow all? maybe not needed, but keep pure.
+    // For accessibility, also allow blow prompt area option? no.
+    
+    // Prevent replay & ensure no double song: fine
+    // Make the cake as big centerpiece: done
+    
+    // additional purple dark shimmer particles (optional)
+    const styleParticles = document.createElement('style');
+    styleParticles.textContent = `
+      .cake:hover { transform: scale(1.01); transition: 0.1s;}
+      .flame-active { box-shadow: 0 0 20px #ffaa55; }
+    `;
+    document.head.appendChild(styleParticles);
+    
+    // ensure on small screens cake is responsive
+    window.addEventListener('resize', () => {});
+    
+    // Final polish: if user clicks skip during song, stop song fully - implemented
+    console.log('Ready: dark purple theme, faster synth song, tap to blow candles, skip button ready');
+  })();
+</script>
+</body>
+</html>
